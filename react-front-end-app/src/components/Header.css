@@ -1,0 +1,23 @@
+.header {
+  background-color: #ffffff;
+  border-bottom: 2px solid #ddd;
+  padding: 20px;
+  text-align: center;
+}
+
+.header h1 {
+  margin-bottom: 10px;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  color: #2c6e49;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  padding: 8px 12px;
+}

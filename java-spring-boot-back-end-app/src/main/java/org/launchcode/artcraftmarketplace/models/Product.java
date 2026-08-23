@@ -1,9 +1,6 @@
 package org.launchcode.artcraftmarketplace.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Product {
@@ -15,12 +12,20 @@ public class Product {
     private String name;
     private double price;
 
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
+    @Column(columnDefinition = "LONGTEXT")
+    private String image;
+
     public Product() {
     }
 
-    public Product(String name, double price) {
+    public Product(String name, double price, String description, String image) {
         this.name = name;
         this.price = price;
+        this.description = description;
+        this.image = image;
     }
 
     public int getId() {
@@ -41,5 +46,21 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
