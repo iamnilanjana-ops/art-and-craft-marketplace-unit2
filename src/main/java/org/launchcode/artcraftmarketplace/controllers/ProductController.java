@@ -27,4 +27,20 @@ public class ProductController {
     public Product createProduct(@RequestBody Product product) {
         return productRepository.save(product);
     }
+    // UPDATE - Update an existing product
+    @PutMapping("/{id}")
+    public Product updateProduct(@PathVariable Integer id, @RequestBody Product updatedProduct) {
+
+        Product product = productRepository.findById(id).orElseThrow();
+
+        product.setName(updatedProduct.getName());
+        product.setPrice(updatedProduct.getPrice());
+
+        return productRepository.save(product);
+    }
+    // DELETE - Delete a product
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable Integer id) {
+        productRepository.deleteById(id);
+    }
 }
