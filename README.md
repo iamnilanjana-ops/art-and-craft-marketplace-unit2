@@ -95,7 +95,7 @@ The frontend opens at http://localhost:3000.
 
 Wireframes
 
-View the project wireframes on Miro.
+View the Art & Craft Marketplace ER diagram on [Canva](https://canva.link/r963cj9z8m0zk49).
 
 ER Diagram
 
