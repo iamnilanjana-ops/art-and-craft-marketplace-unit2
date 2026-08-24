@@ -27,7 +27,7 @@ public class ProductController {
     @PostMapping
     public Product createProduct(@RequestBody Product product) {
 
-        if (product.getPrice() < 0) {
+        if (product.getPrice() <= 0) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
                     "Price cannot be negative."
@@ -42,7 +42,7 @@ public class ProductController {
             @PathVariable Integer id,
             @RequestBody Product updatedProduct) {
 
-        if (updatedProduct.getPrice() < 0) {
+        if (updatedProduct.getPrice() <= 0) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
                     "Price cannot be negative."
