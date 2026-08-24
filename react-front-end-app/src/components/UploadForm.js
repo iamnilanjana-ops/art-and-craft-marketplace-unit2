@@ -38,10 +38,6 @@ function UploadForm({
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        if (Number(price) < 0) {
-            alert("Price cannot be negative.");
-            return;
-        }
 
         const product = {
             id: editingProduct ? editingProduct.id : undefined,
@@ -88,7 +84,7 @@ function UploadForm({
                 type="number"
                 placeholder="Price"
                 value={price}
-                min="0"
+                min="0.01"
                 step="0.01"
                 onChange={(event) => setPrice(event.target.value)}
                 required
