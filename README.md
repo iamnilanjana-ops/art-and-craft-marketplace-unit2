@@ -1,106 +1,101 @@
-Art & Craft Marketplace
+# Art & Craft Marketplace
 
 Art & Craft Marketplace is a full-stack web application that connects artists and craft creators with customers looking for handmade products. Artists can add, view, edit, and delete their product listings, including descriptions, prices, and images. Customers can browse available products and submit product reviews. The application uses a React frontend, a Java Spring Boot backend, and a MySQL database to store product information persistently.
 
-Technologies
+## Technologies
 
-React 19
+- React 19
+- React Router
+- Java 21
+- Spring Boot 4.1.1
+- Spring Data JPA
+- MySQL
+- Maven
+- Jest and React Testing Library
 
-React Router
+## Project Structure
 
-Java 21
+- `java-spring-boot-back-end-app` - Spring Boot backend and REST API
+- `react-front-end-app` - React frontend
 
-Spring Boot 4.1.1
+## Current Features
 
-Spring Data JPA
+- Add, view, edit, and delete products
+- Add product descriptions, prices, and images
+- Store product data persistently in MySQL
+- Validate product prices
+- Add and view product reviews
 
-MySQL
+## Installation
 
-Maven
+### Prerequisites
 
-Jest and React Testing Library
+- Java 21
+- Node.js and npm
+- MySQL
+- Git
 
-Project Structure
+### 1. Clone the repository
 
-java-spring-boot-back-end-app - Spring Boot backend and REST API
-
-react-front-end-app - React frontend
-
-Current Features
-
-Add, view, edit, and delete products
-
-Add product descriptions, prices, and images
-
-Store product data persistently in MySQL
-
-Validate product prices
-
-Add and view product reviews
-
-Installation
-
-Prerequisites
-
-Java 21
-
-Node.js and npm
-
-MySQL
-
-Git
-
-1. Clone the repository
-
+```bash
 git clone https://github.com/iamnilanjana-ops/art-and-craft-marketplace-unit2.git
 cd art-and-craft-marketplace-unit2
+```
 
-2. Create the MySQL database
+### 2. Create the MySQL database
 
 Open MySQL and run:
 
+```sql
 CREATE DATABASE art_craft_marketplace;
+```
 
-3. Configure and run the Spring Boot backend
+### 3. Configure and run the Spring Boot backend
 
-The backend reads the database connection from the DB_URL, DB_USERNAME, and DB_PASSWORD environment variables.
+The backend reads the database connection from the `DB_URL`, `DB_USERNAME`, and `DB_PASSWORD` environment variables.
 
 On Windows PowerShell:
 
+```powershell
 $env:DB_URL="jdbc:mysql://localhost:3306/art_craft_marketplace"
 $env:DB_USERNAME="your_mysql_username"
 $env:DB_PASSWORD="your_mysql_password"
 cd java-spring-boot-back-end-app
 .\mvnw.cmd spring-boot:run
+```
 
 On macOS or Linux:
 
+```bash
 export DB_URL="jdbc:mysql://localhost:3306/art_craft_marketplace"
 export DB_USERNAME="your_mysql_username"
 export DB_PASSWORD="your_mysql_password"
 cd java-spring-boot-back-end-app
 ./mvnw spring-boot:run
+```
 
-The backend runs at http://localhost:8080.
+The backend runs at `http://localhost:8080`.
 
-4. Install and run the React frontend
+### 4. Install and run the React frontend
 
 Open a second terminal from the repository root and run:
 
+```bash
 cd react-front-end-app
 npm install
 npm start
+```
 
-The frontend opens at http://localhost:3000.
+The frontend opens at `http://localhost:3000`.
 
-Wireframes
+## Wireframes
+
+View the project wireframes on [Miro](https://miro.com/app/board/uXjVG7h3Ca0=/?share_link_id=469935280642).
+
+## ER Diagram
 
 View the Art & Craft Marketplace ER diagram on [Canva](https://canva.link/r963cj9z8m0zk49).
 
-ER Diagram
-
-View the Art & Craft Marketplace ER diagram on Canva.
-
-Future Features and Known Limitations
+## Future Features and Known Limitations
 
 The current proof of concept focuses on persistent product CRUD operations and product reviews. The checkout page is currently a placeholder, and shopping cart, order processing, user authentication, artist and customer roles, favorites, and secure payment processing are not yet implemented. Future development will add these marketplace features, improve responsive design for different screen sizes, and expand automated test coverage.
