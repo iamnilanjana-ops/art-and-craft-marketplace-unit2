@@ -15,6 +15,14 @@ function Upload() {
             .catch((error) => console.error("Error fetching products:", error));
     }, []);
 
+    // GET reviews from backend
+    useEffect(() => {
+        fetch("http://localhost:8080/api/reviews")
+            .then((response) => response.json())
+            .then((data) => setReviews(data))
+            .catch((error) => console.error("Error fetching reviews:", error));
+    }, []);
+
     // POST new product to backend
     const addProduct = (product) => {
         fetch("http://localhost:8080/api/products", {
@@ -49,8 +57,20 @@ function Upload() {
         setEditingProduct(null);
     };
 
+    // POST new review to backend
     const addReview = (review) => {
-        setReviews([...reviews, review]);
+        fetch("http://localhost:8080/api/reviews", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(review)
+        })
+            .then((response) => response.json())
+            .then((savedReview) => {
+                setReviews([...reviews, savedReview]);
+            })
+            .catch((error) => console.error("Error adding review:", error));
     };
 
     return (

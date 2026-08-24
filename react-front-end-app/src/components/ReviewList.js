@@ -1,53 +1,48 @@
 import React from "react";
 import "./ReviewList.css";
 
-// Renders the aggregate rating/count for a product's reviews, followed by
-// the individual review items. Shows an empty state when there are none.
 function ReviewList({ reviews }) {
-  const reviewCount = reviews.length;
 
-  const averageRating =
-    reviewCount === 0
-      ? 0
-      : reviews.reduce((total, review) => total + review.rating, 0) /
-        reviewCount;
+    if (!reviews || reviews.length === 0) {
+        return (
+            <div className="review-list">
+                <h3>Reviews</h3>
+                <p>No reviews yet. Be the first to review!</p>
+            </div>
+        );
+    }
 
-  // Rounded to one decimal place for display (e.g. 4.3 average of 1-5 ratings).
-  const displayedAverage = Math.round(averageRating * 10) / 10;
+    const averageRating =
+        reviews.reduce((total, review) => total + Number(review.rating), 0) /
+        reviews.length;
 
-  return (
-    <div className="review-list">
-      <h4>Reviews</h4>
+    return (
+        <div className="review-list">
 
-      {reviewCount === 0 ? (
-        <p className="no-reviews">No reviews yet. Be the first to review!</p>
-      ) : (
-        <>
-          <p className="review-summary">
-            Average Rating: {displayedAverage} / 5 ({reviewCount}{" "}
-            {reviewCount === 1 ? "review" : "reviews"})
-          </p>
+            <h3>Reviews</h3>
 
-          <ul className="review-items">
+            <h4>
+                Average Rating: {averageRating.toFixed(1)} / 5 ({reviews.length} reviews)
+            </h4>
+
             {reviews.map((review) => (
-              <li key={review.id} className="review-item">
-                <div className="review-item-header">
-                  <span className="review-reviewer-name">
-                    {review.reviewerName}
-                  </span>
-                  <span className="review-rating">{review.rating} / 5</span>
-                  <span className="review-date">
-                    {new Date(review.createdAt).toLocaleDateString()}
-                  </span>
+                <div className="review-item" key={review.id}>
+
+                    <div className="review-header">
+                        <strong>{review.reviewerName}</strong>
+
+                        <span className="review-rating">
+              {review.rating} / 5
+            </span>
+                    </div>
+
+                    <p>{review.comment}</p>
+
                 </div>
-                <p className="review-comment">{review.comment}</p>
-              </li>
             ))}
-          </ul>
-        </>
-      )}
-    </div>
-  );
+
+        </div>
+    );
 }
 
 export default ReviewList;
