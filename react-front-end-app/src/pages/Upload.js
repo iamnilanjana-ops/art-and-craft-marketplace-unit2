@@ -7,7 +7,7 @@ function Upload() {
     const [reviews, setReviews] = useState([]);
     const [editingProduct, setEditingProduct] = useState(null);
 
-    // GET products from backend
+    // GET products
     useEffect(() => {
         fetch("http://localhost:8080/api/products")
             .then((response) => response.json())
@@ -15,7 +15,7 @@ function Upload() {
             .catch((error) => console.error("Error fetching products:", error));
     }, []);
 
-    // GET reviews from backend
+    // GET reviews
     useEffect(() => {
         fetch("http://localhost:8080/api/reviews")
             .then((response) => response.json())
@@ -23,7 +23,7 @@ function Upload() {
             .catch((error) => console.error("Error fetching reviews:", error));
     }, []);
 
-    // POST new product to backend
+    // ADD product
     const addProduct = (product) => {
         fetch("http://localhost:8080/api/products", {
             method: "POST",
@@ -39,25 +39,54 @@ function Upload() {
             .catch((error) => console.error("Error adding product:", error));
     };
 
-    const deleteProduct = (id) => {
-        setProducts(products.filter((product) => product.id !== id));
-    };
-
+    // EDIT button
     const editProduct = (product) => {
         setEditingProduct(product);
+        window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
+    // UPDATE product
     const updateProduct = (updatedProduct) => {
-        setProducts(
-            products.map((product) =>
-                product.id === updatedProduct.id ? updatedProduct : product
-            )
-        );
+        fetch(`http://localhost:8080/api/products/${updatedProduct.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(updatedProduct)
+        })
+            .then((response) => response.json())
+            .then((savedProduct) => {
+                setProducts(
+                    products.map((product) =>
+                        product.id === savedProduct.id
+                            ? savedProduct
+                            : product
+                    )
+                );
 
-        setEditingProduct(null);
+                setEditingProduct(null);
+            })
+            .catch((error) =>
+                console.error("Error updating product:", error)
+            );
     };
 
-    // POST new review to backend
+    // DELETE product
+    const deleteProduct = (id) => {
+        fetch(`http://localhost:8080/api/products/${id}`, {
+            method: "DELETE"
+        })
+            .then(() => {
+                setProducts(
+                    products.filter((product) => product.id !== id)
+                );
+            })
+            .catch((error) =>
+                console.error("Error deleting product:", error)
+            );
+    };
+
+    // ADD review
     const addReview = (review) => {
         fetch("http://localhost:8080/api/reviews", {
             method: "POST",
@@ -70,7 +99,9 @@ function Upload() {
             .then((savedReview) => {
                 setReviews([...reviews, savedReview]);
             })
-            .catch((error) => console.error("Error adding review:", error));
+            .catch((error) =>
+                console.error("Error adding review:", error)
+            );
     };
 
     return (

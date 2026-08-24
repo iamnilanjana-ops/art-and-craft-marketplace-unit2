@@ -1,11 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./UploadForm.css";
 
-function UploadForm({ addProduct }) {
+function UploadForm({
+                        addProduct,
+                        editingProduct,
+                        updateProduct,
+                        setEditingProduct
+                    }) {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
     const [image, setImage] = useState("");
+
+    useEffect(() => {
+        if (editingProduct) {
+            setName(editingProduct.name || "");
+            setPrice(editingProduct.price || "");
+            setDescription(editingProduct.description || "");
+            setImage(editingProduct.image || "");
+        }
+    }, [editingProduct]);
 
     const handleImageFile = (event) => {
         const file = event.target.files[0];
@@ -24,15 +38,34 @@ function UploadForm({ addProduct }) {
     const handleSubmit = (event) => {
         event.preventDefault();
 
+        if (Number(price) < 0) {
+            alert("Price cannot be negative.");
+            return;
+        }
+
         const product = {
+            id: editingProduct ? editingProduct.id : undefined,
             name: name,
             price: Number(price),
             description: description,
             image: image
         };
 
-        addProduct(product);
+        if (editingProduct) {
+            updateProduct(product);
+        } else {
+            addProduct(product);
+        }
 
+        setName("");
+        setPrice("");
+        setDescription("");
+        setImage("");
+        setEditingProduct(null);
+    };
+
+    const cancelEdit = () => {
+        setEditingProduct(null);
         setName("");
         setPrice("");
         setDescription("");
@@ -41,7 +74,7 @@ function UploadForm({ addProduct }) {
 
     return (
         <form className="upload-form" onSubmit={handleSubmit}>
-            <h3>Add Product</h3>
+            <h3>{editingProduct ? "Edit Product" : "Add Product"}</h3>
 
             <input
                 type="text"
@@ -55,6 +88,8 @@ function UploadForm({ addProduct }) {
                 type="number"
                 placeholder="Price"
                 value={price}
+                min="0"
+                step="0.01"
                 onChange={(event) => setPrice(event.target.value)}
                 required
             />
@@ -86,7 +121,17 @@ function UploadForm({ addProduct }) {
                 />
             )}
 
-            <button type="submit">Add Product</button>
+            <div className="form-buttons">
+                <button type="submit">
+                    {editingProduct ? "Update Product" : "Add Product"}
+                </button>
+
+                {editingProduct && (
+                    <button type="button" onClick={cancelEdit}>
+                        Cancel
+                    </button>
+                )}
+            </div>
         </form>
     );
 }
