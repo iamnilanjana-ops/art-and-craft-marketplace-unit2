@@ -48,7 +48,7 @@ function UploadForm({
             description: description,
             image: image
         };
-        alert("Price: " + product.price + " | Quantity: " + product.quantity);
+        
 
         if (editingProduct) {
             await updateProduct(product);

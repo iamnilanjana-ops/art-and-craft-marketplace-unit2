@@ -29,7 +29,7 @@ function Upload() {
 
     // ADD product
     const addProduct = (product) => {
-        fetch("http://localhost:8080/api/products", {
+        return fetch("http://localhost:8080/api/products", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -38,7 +38,12 @@ function Upload() {
         })
             .then((response) => response.json())
             .then((savedProduct) => {
-                setProducts([...products, savedProduct]);
+                setProducts((currentProducts) => [
+                    ...currentProducts,
+                    savedProduct
+                ]);
+
+                return savedProduct;
             })
             .catch((error) =>
                 console.error("Error adding product:", error)
@@ -66,26 +71,29 @@ function Upload() {
             );
 
             if (!response.ok) {
-                throw new Error("Could not update product");
+                alert("Update failed. Status: " + response.status);
+                return;
             }
 
-            // Get latest product data from backend
-            const productsResponse = await fetch(
-                "http://localhost:8080/api/products"
+            const savedProduct = await response.json();
+
+            setProducts((currentProducts) =>
+                currentProducts.map((product) =>
+                    product.id === savedProduct.id
+                        ? savedProduct
+                        : product
+                )
             );
 
-            if (!productsResponse.ok) {
-                throw new Error("Could not reload products");
-            }
-
-            const latestProducts = await productsResponse.json();
-
-            setProducts(latestProducts);
             setEditingProduct(null);
+
+            alert("Product updated successfully!");
+
+            return savedProduct;
 
         } catch (error) {
             console.error("Error updating product:", error);
-            alert("Could not update product.");
+            alert("Product update failed.");
         }
     };
 
@@ -95,8 +103,10 @@ function Upload() {
             method: "DELETE"
         })
             .then(() => {
-                setProducts(
-                    products.filter((product) => product.id !== id)
+                setProducts((currentProducts) =>
+                    currentProducts.filter(
+                        (product) => product.id !== id
+                    )
                 );
             })
             .catch((error) =>
@@ -115,7 +125,10 @@ function Upload() {
         })
             .then((response) => response.json())
             .then((savedReview) => {
-                setReviews([...reviews, savedReview]);
+                setReviews((currentReviews) => [
+                    ...currentReviews,
+                    savedReview
+                ]);
             })
             .catch((error) =>
                 console.error("Error adding review:", error)

@@ -15,8 +15,19 @@ function ProductCard({
         <div className="product-card">
             <h4>{product.name}</h4>
 
-            <p className="price">Price: ${product.price}</p>
-            <p>Available Quantity: {product.quantity}</p>
+            <p className="price">
+                Price: ${product.price}
+            </p>
+
+            {product.quantity > 0 ? (
+                <p>
+                    Available Quantity: {product.quantity}
+                </p>
+            ) : (
+                <p className="out-of-stock">
+                    Out of Stock
+                </p>
+            )}
 
             <p>{product.description}</p>
 
@@ -48,8 +59,11 @@ function ProductCard({
                 <button
                     type="button"
                     onClick={() => addToCart(product.id)}
+                    disabled={product.quantity === 0}
                 >
-                    Add to Cart
+                    {product.quantity === 0
+                        ? "Out of Stock"
+                        : "Add to Cart"}
                 </button>
             </div>
 
