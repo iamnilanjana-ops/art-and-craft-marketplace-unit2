@@ -4,6 +4,7 @@ import "./Cart.css";
 
 function Cart() {
     const [cartItems, setCartItems] = useState([]);
+    const [editingItemId, setEditingItemId] = useState(null);
 
     const loadCart = () => {
         const cartId = localStorage.getItem("cartId");
@@ -22,26 +23,18 @@ function Cart() {
         loadCart();
     }, []);
 
-    const handleEdit = async (item) => {
-        const newQuantity = prompt(
-            "Enter new quantity:",
-            item.quantity
-        );
+    const handleEdit = (itemId) => {
+        setEditingItemId(itemId);
+    };
 
-        if (newQuantity === null) {
-            return;
-        }
-
-        const quantity = Number(newQuantity);
-
-        if (!Number.isInteger(quantity) || quantity < 1) {
-            alert("Please enter a quantity of 1 or more.");
+    const updateQuantity = async (item, newQuantity) => {
+        if (newQuantity < 1) {
             return;
         }
 
         try {
             const response = await fetch(
-                `http://localhost:8080/api/cart-items/${item.id}?quantity=${quantity}`,
+                `http://localhost:8080/api/cart-items/${item.id}?quantity=${newQuantity}`,
                 {
                     method: "PUT",
                 }
@@ -101,7 +94,6 @@ function Cart() {
                 <>
                     {cartItems.map((item) => (
                         <div className="cart-item" key={item.id}>
-
                             {item.product.image ? (
                                 <img
                                     src={item.product.image}
@@ -117,31 +109,61 @@ function Cart() {
                             <div className="cart-item-details">
                                 <h4>{item.product.name}</h4>
 
-                                <p>
-                                    Price: ${item.product.price}
-                                </p>
+                                <p>Price: ${item.product.price}</p>
 
-                                <p>
-                                    Quantity: {item.quantity}
-                                </p>
+                                {editingItemId === item.id ? (
+                                    <div className="quantity-control">
+                                        <button
+                                            type="button"
+                                            onClick={() =>
+                                                updateQuantity(
+                                                    item,
+                                                    item.quantity - 1
+                                                )
+                                            }
+                                            disabled={item.quantity === 1}
+                                        >
+                                            −
+                                        </button>
+
+                                        <span>{item.quantity}</span>
+
+                                        <button
+                                            type="button"
+                                            onClick={() =>
+                                                updateQuantity(
+                                                    item,
+                                                    item.quantity + 1
+                                                )
+                                            }
+                                        >
+                                            +
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <p>Quantity: {item.quantity}</p>
+                                )}
 
                                 <div className="cart-item-buttons">
                                     <button
                                         type="button"
-                                        onClick={() => handleEdit(item)}
+                                        onClick={() =>
+                                            handleEdit(item.id)
+                                        }
                                     >
                                         Edit
                                     </button>
 
                                     <button
                                         type="button"
-                                        onClick={() => handleDelete(item.id)}
+                                        onClick={() =>
+                                            handleDelete(item.id)
+                                        }
                                     >
                                         Delete
                                     </button>
                                 </div>
                             </div>
-
                         </div>
                     ))}
 
