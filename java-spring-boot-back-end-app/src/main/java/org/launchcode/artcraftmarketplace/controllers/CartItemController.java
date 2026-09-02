@@ -8,6 +8,8 @@ import org.launchcode.artcraftmarketplace.repositories.CartRepository;
 import org.launchcode.artcraftmarketplace.repositories.ProductRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/cart-items")
 @CrossOrigin(origins = "http://localhost:3000")
@@ -24,6 +26,11 @@ public class CartItemController {
         this.cartItemRepository = cartItemRepository;
         this.cartRepository = cartRepository;
         this.productRepository = productRepository;
+    }
+
+    @GetMapping
+    public List<CartItem> getCartItems(@RequestParam int cartId) {
+        return cartItemRepository.findByCartId(cartId);
     }
 
     @PostMapping
