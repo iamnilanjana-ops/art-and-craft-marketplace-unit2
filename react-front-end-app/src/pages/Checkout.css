@@ -44,3 +44,63 @@
 .confirmation-card strong {
   color: #2c6e49;
 }
+.checkout-page {
+  max-width: 650px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.checkout-page h2 {
+  color: #2c6e49;
+  margin-bottom: 10px;
+}
+
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.checkout-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.checkout-form input,
+.checkout-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.checkout-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.place-order-button {
+  padding: 12px 18px;
+  background-color: #2c6e49;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.place-order-button:hover {
+  background-color: #245a3c;
+}
+
+.demo-note {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #666;
+}

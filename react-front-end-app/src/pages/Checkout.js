@@ -64,12 +64,12 @@ function Checkout() {
 }
 
   return (
-    <div className="page-container">
-      <h2>Checkout</h2>
+  <div className="checkout-page">
+    <h2>Checkout</h2>
 
       <p>Enter your shipping information to place your order.</p>
 
-      <form onSubmit={placeOrder}>
+      <form onSubmit={placeOrder} className="checkout-form">
         <div>
           <label>Full Name</label>
           <input
@@ -101,12 +101,14 @@ function Checkout() {
 
         {error && <p>{error}</p>}
 
-        <button type="submit">
+        <button type="submit" className="place-order-button">
           Place Order
         </button>
       </form>
 
-      <p>Demo checkout — no payment information is collected.</p>
+      <p className="demo-note">
+        Demo checkout — no payment information is collected.
+      </p>
     </div>
   );
 }
