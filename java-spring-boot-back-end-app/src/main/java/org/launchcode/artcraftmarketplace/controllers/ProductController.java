@@ -53,6 +53,7 @@ public class ProductController {
 
         product.setName(updatedProduct.getName());
         product.setPrice(updatedProduct.getPrice());
+        product.setQuantity(updatedProduct.getQuantity());
         product.setDescription(updatedProduct.getDescription());
         product.setImage(updatedProduct.getImage());
 

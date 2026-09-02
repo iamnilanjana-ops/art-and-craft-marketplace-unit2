@@ -11,6 +11,7 @@ public class Product {
 
     private String name;
     private double price;
+    private int quantity;
 
     @Column(columnDefinition = "TEXT")
     private String description;
@@ -21,9 +22,16 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, double price, String description, String image) {
+    public Product(
+            String name,
+            double price,
+            int quantity,
+            String description,
+            String image) {
+
         this.name = name;
         this.price = price;
+        this.quantity = quantity;
         this.description = description;
         this.image = image;
     }
@@ -46,6 +54,14 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public String getDescription() {

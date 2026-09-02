@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import "./UploadForm.css";
 
 function UploadForm({
-                        addProduct,
-                        editingProduct,
-                        updateProduct,
-                        setEditingProduct
-                    }) {
+    addProduct,
+    editingProduct,
+    updateProduct,
+    setEditingProduct
+}) {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
+    const [quantity, setQuantity] = useState("");
     const [description, setDescription] = useState("");
     const [image, setImage] = useState("");
 
@@ -16,6 +17,7 @@ function UploadForm({
         if (editingProduct) {
             setName(editingProduct.name || "");
             setPrice(editingProduct.price || "");
+            setQuantity(editingProduct.quantity || "");
             setDescription(editingProduct.description || "");
             setImage(editingProduct.image || "");
         }
@@ -38,11 +40,11 @@ function UploadForm({
     const handleSubmit = (event) => {
         event.preventDefault();
 
-
         const product = {
             id: editingProduct ? editingProduct.id : undefined,
             name: name,
             price: Number(price),
+            quantity: Number(quantity),
             description: description,
             image: image
         };
@@ -55,6 +57,7 @@ function UploadForm({
 
         setName("");
         setPrice("");
+        setQuantity("");
         setDescription("");
         setImage("");
         setEditingProduct(null);
@@ -64,6 +67,7 @@ function UploadForm({
         setEditingProduct(null);
         setName("");
         setPrice("");
+        setQuantity("");
         setDescription("");
         setImage("");
     };
@@ -87,6 +91,16 @@ function UploadForm({
                 min="0.01"
                 step="0.01"
                 onChange={(event) => setPrice(event.target.value)}
+                required
+            />
+
+            <input
+                type="number"
+                placeholder="Quantity"
+                value={quantity}
+                min="0"
+                step="1"
+                onChange={(event) => setQuantity(event.target.value)}
                 required
             />
 
