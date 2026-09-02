@@ -49,4 +49,24 @@ public class CartItemController {
 
         return cartItemRepository.save(item);
     }
+
+    @PutMapping("/{id}")
+    public CartItem updateCartItem(
+            @PathVariable int id,
+            @RequestParam int quantity) {
+
+        CartItem item = cartItemRepository.findById(id).orElseThrow();
+
+        item.setQuantity(quantity);
+
+        return cartItemRepository.save(item);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteCartItem(@PathVariable int id) {
+
+        CartItem item = cartItemRepository.findById(id).orElseThrow();
+
+        cartItemRepository.delete(item);
+    }
 }
