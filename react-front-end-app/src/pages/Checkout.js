@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./Checkout.css";
 
 function Checkout() {
   const [customerName, setCustomerName] = useState("");
@@ -45,8 +46,11 @@ function Checkout() {
   };
 
   if (orderId) {
-    return (
-      <div className="page-container">
+  return (
+    <div className="confirmation-page">
+      <div className="confirmation-card">
+        <div className="confirmation-check">✓</div>
+
         <h2>Order Confirmed!</h2>
 
         <p>Thank you for your order.</p>
@@ -55,8 +59,9 @@ function Checkout() {
           Your Order ID is: <strong>{orderId}</strong>
         </p>
       </div>
-    );
-  }
+    </div>
+  );
+}
 
   return (
     <div className="page-container">
