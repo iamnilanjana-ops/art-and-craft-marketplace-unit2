@@ -3,7 +3,14 @@ import "./ProductCard.css";
 import ReviewForm from "./ReviewForm";
 import ReviewList from "./ReviewList";
 
-function ProductCard({ product, deleteProduct, editProduct, reviews, addReview }) {
+function ProductCard({
+    product,
+    deleteProduct,
+    editProduct,
+    reviews,
+    addReview,
+    addToCart
+}) {
     return (
         <div className="product-card">
             <h4>{product.name}</h4>
@@ -35,6 +42,13 @@ function ProductCard({ product, deleteProduct, editProduct, reviews, addReview }
                     onClick={() => deleteProduct(product.id)}
                 >
                     Delete
+                </button>
+
+                <button
+                    type="button"
+                    onClick={() => addToCart(product.id)}
+                >
+                    Add to Cart
                 </button>
             </div>
 

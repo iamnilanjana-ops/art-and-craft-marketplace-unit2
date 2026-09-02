@@ -2,7 +2,14 @@ import React from "react";
 import ProductCard from "./ProductCard";
 import "./ProductList.css";
 
-function ProductList({ products, deleteProduct, editProduct, reviews, addReview }) {
+function ProductList({
+  products,
+  deleteProduct,
+  editProduct,
+  reviews,
+  addReview,
+  addToCart
+}) {
   return (
     <div className="product-list">
       <h3>Product List</h3>
@@ -21,6 +28,7 @@ function ProductList({ products, deleteProduct, editProduct, reviews, addReview 
                 (review) => review.productId === product.id
               )}
               addReview={addReview}
+              addToCart={addToCart}
             />
           ))}
         </div>

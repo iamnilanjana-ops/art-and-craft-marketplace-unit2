@@ -21,3 +21,14 @@
 .nav-links a {
   padding: 8px 12px;
 }
+.cart-link {
+  border: 1px solid #2c6e49;
+  border-radius: 6px;
+  padding: 7px 12px !important;
+  text-decoration: none;
+  background-color: #ffffff;
+}
+
+.cart-link:hover {
+  background-color: #f2f2f2;
+}

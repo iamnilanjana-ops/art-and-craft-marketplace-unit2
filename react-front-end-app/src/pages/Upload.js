@@ -103,7 +103,38 @@ function Upload() {
                 console.error("Error adding review:", error)
             );
     };
+            // ADD TO CART
+const addToCart = async (productId) => {
+    try {
+        let cartId = localStorage.getItem("cartId");
 
+        if (!cartId) {
+            const cartResponse = await fetch("http://localhost:8080/api/cart", {
+                method: "POST"
+            });
+
+            const newCart = await cartResponse.json();
+            cartId = newCart.id;
+
+            localStorage.setItem("cartId", cartId);
+        }
+
+        const response = await fetch(
+            `http://localhost:8080/api/cart-items?cartId=${cartId}&productId=${productId}&quantity=1`,
+            {
+                method: "POST"
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Could not add item to cart");
+        }
+
+        alert("Product added to cart!");
+    } catch (error) {
+        console.error("Error adding to cart:", error);
+    }
+};
     return (
         <div className="page-container">
             <h2>Upload Page</h2>
@@ -121,6 +152,7 @@ function Upload() {
                 editProduct={editProduct}
                 reviews={reviews}
                 addReview={addReview}
+                addToCart={addToCart}
             />
         </div>
     );
