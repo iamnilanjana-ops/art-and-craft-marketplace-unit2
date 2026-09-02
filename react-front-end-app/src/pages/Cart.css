@@ -10,8 +10,8 @@
 
 .cart-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 25px;
   background-color: #ffffff;
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -77,4 +77,32 @@
 
 .cart-item-details {
   flex: 1;
+}
+.cart-item-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.cart-item-buttons button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cart-item-buttons button:first-child {
+  background-color: #2c6e49;
+  color: white;
+}
+
+.cart-item-buttons button:last-child {
+  background-color: #eeeeee;
+  color: #333333;
+}
+
+.cart-item-buttons button:hover {
+  opacity: 0.85;
 }
