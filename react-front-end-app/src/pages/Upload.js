@@ -12,7 +12,9 @@ function Upload() {
         fetch("http://localhost:8080/api/products")
             .then((response) => response.json())
             .then((data) => setProducts(data))
-            .catch((error) => console.error("Error fetching products:", error));
+            .catch((error) =>
+                console.error("Error fetching products:", error)
+            );
     }, []);
 
     // GET reviews
@@ -20,7 +22,9 @@ function Upload() {
         fetch("http://localhost:8080/api/reviews")
             .then((response) => response.json())
             .then((data) => setReviews(data))
-            .catch((error) => console.error("Error fetching reviews:", error));
+            .catch((error) =>
+                console.error("Error fetching reviews:", error)
+            );
     }, []);
 
     // ADD product
@@ -36,39 +40,53 @@ function Upload() {
             .then((savedProduct) => {
                 setProducts([...products, savedProduct]);
             })
-            .catch((error) => console.error("Error adding product:", error));
+            .catch((error) =>
+                console.error("Error adding product:", error)
+            );
     };
 
-    // EDIT button
+    // EDIT product
     const editProduct = (product) => {
         setEditingProduct(product);
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
     // UPDATE product
-    const updateProduct = (updatedProduct) => {
-        fetch(`http://localhost:8080/api/products/${updatedProduct.id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(updatedProduct)
-        })
-            .then((response) => response.json())
-            .then((savedProduct) => {
-                setProducts(
-                    products.map((product) =>
-                        product.id === savedProduct.id
-                            ? savedProduct
-                            : product
-                    )
-                );
-
-                setEditingProduct(null);
-            })
-            .catch((error) =>
-                console.error("Error updating product:", error)
+    const updateProduct = async (updatedProduct) => {
+        try {
+            const response = await fetch(
+                `http://localhost:8080/api/products/${updatedProduct.id}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(updatedProduct)
+                }
             );
+
+            if (!response.ok) {
+                throw new Error("Could not update product");
+            }
+
+            // Get latest product data from backend
+            const productsResponse = await fetch(
+                "http://localhost:8080/api/products"
+            );
+
+            if (!productsResponse.ok) {
+                throw new Error("Could not reload products");
+            }
+
+            const latestProducts = await productsResponse.json();
+
+            setProducts(latestProducts);
+            setEditingProduct(null);
+
+        } catch (error) {
+            console.error("Error updating product:", error);
+            alert("Could not update product.");
+        }
     };
 
     // DELETE product
@@ -103,38 +121,44 @@ function Upload() {
                 console.error("Error adding review:", error)
             );
     };
-            // ADD TO CART
-const addToCart = async (productId) => {
-    try {
-        let cartId = localStorage.getItem("cartId");
 
-        if (!cartId) {
-            const cartResponse = await fetch("http://localhost:8080/api/cart", {
-                method: "POST"
-            });
+    // ADD TO CART
+    const addToCart = async (productId) => {
+        try {
+            let cartId = localStorage.getItem("cartId");
 
-            const newCart = await cartResponse.json();
-            cartId = newCart.id;
+            if (!cartId) {
+                const cartResponse = await fetch(
+                    "http://localhost:8080/api/cart",
+                    {
+                        method: "POST"
+                    }
+                );
 
-            localStorage.setItem("cartId", cartId);
-        }
+                const newCart = await cartResponse.json();
 
-        const response = await fetch(
-            `http://localhost:8080/api/cart-items?cartId=${cartId}&productId=${productId}&quantity=1`,
-            {
-                method: "POST"
+                cartId = newCart.id;
+                localStorage.setItem("cartId", cartId);
             }
-        );
 
-        if (!response.ok) {
-            throw new Error("Could not add item to cart");
+            const response = await fetch(
+                `http://localhost:8080/api/cart-items?cartId=${cartId}&productId=${productId}&quantity=1`,
+                {
+                    method: "POST"
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Could not add item to cart");
+            }
+
+            alert("Product added to cart!");
+
+        } catch (error) {
+            console.error("Error adding to cart:", error);
         }
+    };
 
-        alert("Product added to cart!");
-    } catch (error) {
-        console.error("Error adding to cart:", error);
-    }
-};
     return (
         <div className="page-container">
             <h2>Upload Page</h2>

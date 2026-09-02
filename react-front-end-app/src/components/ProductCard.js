@@ -16,6 +16,7 @@ function ProductCard({
             <h4>{product.name}</h4>
 
             <p className="price">Price: ${product.price}</p>
+            <p>Available Quantity: {product.quantity}</p>
 
             <p>{product.description}</p>
 

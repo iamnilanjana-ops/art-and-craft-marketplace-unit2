@@ -37,7 +37,7 @@ function UploadForm({
         }
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         const product = {
@@ -48,11 +48,12 @@ function UploadForm({
             description: description,
             image: image
         };
+        alert("Price: " + product.price + " | Quantity: " + product.quantity);
 
         if (editingProduct) {
-            updateProduct(product);
+            await updateProduct(product);
         } else {
-            addProduct(product);
+            await addProduct(product);
         }
 
         setName("");
@@ -74,7 +75,9 @@ function UploadForm({
 
     return (
         <form className="upload-form" onSubmit={handleSubmit}>
-            <h3>{editingProduct ? "Edit Product" : "Add Product"}</h3>
+            <h3>
+                {editingProduct ? "Edit Product" : "Add Product"}
+            </h3>
 
             <input
                 type="text"
@@ -107,7 +110,9 @@ function UploadForm({
             <textarea
                 placeholder="Description"
                 value={description}
-                onChange={(event) => setDescription(event.target.value)}
+                onChange={(event) =>
+                    setDescription(event.target.value)
+                }
             />
 
             <input
@@ -133,11 +138,16 @@ function UploadForm({
 
             <div className="form-buttons">
                 <button type="submit">
-                    {editingProduct ? "Update Product" : "Add Product"}
+                    {editingProduct
+                        ? "Update Product"
+                        : "Add Product"}
                 </button>
 
                 {editingProduct && (
-                    <button type="button" onClick={cancelEdit}>
+                    <button
+                        type="button"
+                        onClick={cancelEdit}
+                    >
                         Cancel
                     </button>
                 )}
