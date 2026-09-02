@@ -1,0 +1,68 @@
+.about-page {
+  min-height: 100vh;
+  background-color: #f8f5ef;
+  padding-bottom: 70px;
+}
+
+.about-hero {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 70px 30px 45px;
+  text-align: center;
+}
+
+.about-label {
+  color: #2c6e49;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+}
+
+.about-hero h1 {
+  font-size: 42px;
+  color: #222222;
+  margin-bottom: 20px;
+}
+
+.about-intro {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #555555;
+}
+
+.about-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 30px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.about-card {
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  padding: 30px 25px;
+}
+
+.about-card h2 {
+  color: #2c6e49;
+  margin-bottom: 15px;
+}
+
+.about-card p {
+  color: #555555;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .about-hero h1 {
+    font-size: 34px;
+  }
+
+  .about-content {
+    grid-template-columns: 1fr;
+  }
+}
