@@ -16,17 +16,20 @@ function ProductCard({
             <h4>{product.name}</h4>
 
             <p className="price">
-                Price: ${product.price}
+                Price: ${Number(product.price).toFixed(2)}
             </p>
 
             {product.quantity > 0 ? (
-                <p>
-                    Available Quantity: {product.quantity}
-                </p>
+                <>
+                    <p>Available Quantity: {product.quantity}</p>
+
+                    <p className="total-price">
+                        Total: $
+                        {(Number(product.price) * Number(product.quantity)).toFixed(2)}
+                    </p>
+                </>
             ) : (
-                <p className="out-of-stock">
-                    Out of Stock
-                </p>
+                <p className="out-of-stock">Out of Stock</p>
             )}
 
             <p>{product.description}</p>

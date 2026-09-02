@@ -16,8 +16,8 @@ function UploadForm({
     useEffect(() => {
         if (editingProduct) {
             setName(editingProduct.name || "");
-            setPrice(editingProduct.price || "");
-            setQuantity(editingProduct.quantity || "");
+            setPrice(editingProduct.price ?? "");
+            setQuantity(editingProduct.quantity ?? "");
             setDescription(editingProduct.description || "");
             setImage(editingProduct.image || "");
         }
@@ -48,7 +48,6 @@ function UploadForm({
             description: description,
             image: image
         };
-        
 
         if (editingProduct) {
             await updateProduct(product);
@@ -79,27 +78,37 @@ function UploadForm({
                 {editingProduct ? "Edit Product" : "Add Product"}
             </h3>
 
+            <label htmlFor="product-name">Product Name</label>
             <input
+                id="product-name"
                 type="text"
-                placeholder="Product Name"
+                placeholder="Enter product name"
                 value={name}
                 onChange={(event) => setName(event.target.value)}
                 required
             />
 
-            <input
-                type="number"
-                placeholder="Price"
-                value={price}
-                min="0.01"
-                step="0.01"
-                onChange={(event) => setPrice(event.target.value)}
-                required
-            />
+            <label htmlFor="product-price">Price ($)</label>
 
             <input
+            id="product-price"
+            type="number"
+            value={price}
+            min="0.01"
+            step="0.01"
+            onChange={(event) => {
+                setPrice(event.target.value);
+            }}
+            required
+            />
+
+            <label htmlFor="product-quantity">
+                Available Quantity
+            </label>
+            <input
+                id="product-quantity"
                 type="number"
-                placeholder="Quantity"
+                placeholder="Enter quantity"
                 value={quantity}
                 min="0"
                 step="1"
@@ -107,22 +116,34 @@ function UploadForm({
                 required
             />
 
+            <label htmlFor="product-description">
+                Description
+            </label>
             <textarea
-                placeholder="Description"
+                id="product-description"
+                placeholder="Enter product description"
                 value={description}
                 onChange={(event) =>
                     setDescription(event.target.value)
                 }
             />
 
+            <label htmlFor="image-url">
+                Image URL (Optional)
+            </label>
             <input
+                id="image-url"
                 type="text"
-                placeholder="Paste image URL (optional)"
+                placeholder="Paste image URL"
                 value={image.startsWith("data:") ? "" : image}
                 onChange={(event) => setImage(event.target.value)}
             />
 
+            <label htmlFor="image-file">
+                Or Upload an Image
+            </label>
             <input
+                id="image-file"
                 type="file"
                 accept="image/*"
                 onChange={handleImageFile}
@@ -131,7 +152,7 @@ function UploadForm({
             {image && (
                 <img
                     src={image}
-                    alt="Preview"
+                    alt="Product preview"
                     className="product-image"
                 />
             )}

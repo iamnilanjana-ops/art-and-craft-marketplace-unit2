@@ -29,13 +29,26 @@ public class CartItemController {
         this.productRepository = productRepository;
     }
 
-    // GET all items for one cart
     @GetMapping
     public List<CartItem> getCartItems(@RequestParam int cartId) {
-        return cartItemRepository.findByCartId(cartId);
+
+        List<CartItem> items =
+                cartItemRepository.findByCartId(cartId);
+
+        for (CartItem item : items) {
+
+            int productId = item.getProduct().getId();
+
+            Product latestProduct = productRepository
+                    .findById(productId)
+                    .orElseThrow();
+
+            item.setProduct(latestProduct);
+        }
+
+        return items;
     }
 
-    // ADD product to cart
     @PostMapping
     public CartItem addToCart(
             @RequestParam int cartId,
@@ -46,34 +59,43 @@ public class CartItemController {
                 .findById(cartId)
                 .orElseThrow();
 
-        Product product = productRepository
+        Product latestProduct = productRepository
                 .findById(productId)
                 .orElseThrow();
 
-        // Check if the product is already in this cart
-        CartItem existingItem = cartItemRepository
-                .findByCartIdAndProductId(cartId, productId)
-                .orElse(null);
+        List<CartItem> existingItems =
+                cartItemRepository.findByCartIdAndProductId(
+                        cartId,
+                        productId
+                );
 
-        // If it already exists, increase its quantity
-        if (existingItem != null) {
-            existingItem.setQuantity(
-                    existingItem.getQuantity() + quantity
-            );
+        if (!existingItems.isEmpty()) {
 
-            return cartItemRepository.save(existingItem);
+            CartItem item = existingItems.get(0);
+
+            item.setProduct(latestProduct);
+
+            item.setQuantity(latestProduct.getQuantity());
+
+            CartItem savedItem =
+                    cartItemRepository.save(item);
+
+            for (int i = 1; i < existingItems.size(); i++) {
+                cartItemRepository.delete(existingItems.get(i));
+            }
+
+            return savedItem;
         }
 
-        // Otherwise create a new cart item
         CartItem item = new CartItem();
+
         item.setCart(cart);
-        item.setProduct(product);
-        item.setQuantity(quantity);
+        item.setProduct(latestProduct);
+        item.setQuantity(latestProduct.getQuantity());
 
         return cartItemRepository.save(item);
     }
 
-    // UPDATE cart item quantity
     @PutMapping("/{id}")
     public CartItem updateCartItem(
             @PathVariable int id,
@@ -83,12 +105,16 @@ public class CartItemController {
                 .findById(id)
                 .orElseThrow();
 
+        Product latestProduct = productRepository
+                .findById(item.getProduct().getId())
+                .orElseThrow();
+
+        item.setProduct(latestProduct);
         item.setQuantity(quantity);
 
         return cartItemRepository.save(item);
     }
 
-    // DELETE cart item
     @DeleteMapping("/{id}")
     public void deleteCartItem(@PathVariable int id) {
 
