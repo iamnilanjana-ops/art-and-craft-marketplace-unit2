@@ -110,6 +110,9 @@ function Cart() {
                                 <h4>{item.product.name}</h4>
 
                                 <p>Price: ${item.product.price}</p>
+                                <p>
+                                    Subtotal: ${(item.product.price * item.quantity).toFixed(2)}
+                                </p>
 
                                 {editingItemId === item.id ? (
                                     <div className="quantity-control">
