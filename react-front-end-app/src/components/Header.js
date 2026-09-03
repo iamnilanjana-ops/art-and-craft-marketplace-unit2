@@ -55,6 +55,15 @@ function Header() {
     };
   }, []);
 
+  const handleSignOut = () => {
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("userEmail");
+
+    setUserRole(null);
+
+    window.dispatchEvent(new Event("loginUpdated"));
+  };
+
   return (
     <header className="header">
       <img
@@ -63,23 +72,32 @@ function Header() {
         className="header-logo"
       />
 
-      <Link to="/login" className="login-link">
-        {userRole === "buyer"
-          ? "Buyer"
-          : userRole === "seller"
-          ? "Seller"
-          : "Login"}
-      </Link>
+      {userRole ? (
+        <div className="user-login-area">
+          <span className="user-role">
+            {userRole === "buyer" ? "Buyer" : "Seller"}
+          </span>
+
+          <button
+            type="button"
+            className="signout-button"
+            onClick={handleSignOut}
+          >
+            Sign Out
+          </button>
+        </div>
+      ) : (
+        <Link to="/login" className="login-link">
+          Login
+        </Link>
+      )}
 
       <h1>Art & Craft Marketplace</h1>
 
       <nav className="nav-links">
         <Link to="/">Home</Link>
-
         <Link to="/about">About</Link>
-
         <Link to="/upload">Upload</Link>
-
         <Link to="/checkout">Checkout</Link>
 
         <Link to="/cart" className="cart-link">

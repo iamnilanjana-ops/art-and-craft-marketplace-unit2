@@ -108,3 +108,34 @@
 .login-link:hover {
   background-color: #f3ebe2;
 }
+.user-login-area {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-role {
+  padding: 8px 14px;
+  background-color: #ffffff;
+  color: #693f03;
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+.signout-button {
+  padding: 8px 14px;
+  border: 1px solid #ffffff;
+  border-radius: 6px;
+  background-color: transparent;
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.signout-button:hover {
+  background-color: #ffffff;
+  color: #693f03;
+}
