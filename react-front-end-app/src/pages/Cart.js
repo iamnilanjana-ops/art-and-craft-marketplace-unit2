@@ -135,7 +135,18 @@ function Cart() {
             <h2>Your Cart</h2>
 
             {cartItems.length === 0 ? (
-                <p>Your cart is empty.</p>
+                <div className="empty-cart">
+                    <h3>Your cart is currently empty.</h3>
+
+                    <p>
+                        Discover unique artwork and handmade creations
+                        from our marketplace.
+                    </p>
+
+                    <Link to="/upload" className="continue-shopping-button">
+                        Continue Shopping
+                    </Link>
+                </div>
             ) : (
                 <>
                     {cartItems.map((item) => {
