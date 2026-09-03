@@ -13,10 +13,10 @@
   text-align: center;
 
   background-image:
-  linear-gradient(
-    rgba(248, 245, 239, 0.40),
-    rgba(248, 245, 239, 0.40)
-  ),
+    linear-gradient(
+      rgba(248, 245, 239, 0.40),
+      rgba(248, 245, 239, 0.40)
+    ),
     url("../assets/art-craft-background.png");
 
   background-size: cover;
@@ -25,31 +25,44 @@
 }
 
 .home-hero-content {
-  max-width: 750px;
+  max-width: 950px;
+  width: 100%;
+  text-align: center;
+
+  position: relative;
+  left: 90px;
 }
 
 .home-label {
   color: #643204;
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   margin-bottom: 15px;
+  text-align: right;
 }
 
 .home-hero h1 {
-  font-size: 48px;
-  color: #222222;
+  font-size: 45px;
+  color: #2b1a0e;
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: 1px;
   margin-bottom: 20px;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.6);
+  text-align: right;
 }
 
 .home-description {
   font-size: 20px;
-  line-height: 1.7;
-  color: #2b1a0e;
-  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1;
+  color: #301a02;
+  font-family: "Trebuchet MS", Arial, sans-serif;
   font-style: italic;
-  font-weight: 500;
+  font-weight: 700;
   margin-bottom: 30px;
+  text-align: right;
 }
 
 .home-actions {
@@ -93,6 +106,7 @@
 .feature-grid {
   max-width: 1000px;
   margin: 0 auto;
+
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 25px;
@@ -116,8 +130,17 @@
 }
 
 @media (max-width: 768px) {
+  .home-hero {
+    min-height: 450px;
+    padding: 40px 20px;
+  }
+
   .home-hero h1 {
     font-size: 36px;
+  }
+
+  .home-description {
+    font-size: 18px;
   }
 
   .feature-grid {

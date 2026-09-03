@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import logo from "../assets/art-craft-logo.png";
 import "./Header.css";
 
 function Header() {
@@ -36,13 +37,10 @@ function Header() {
       }
     };
 
-    // Load count when Header first appears
     loadCartCount();
 
-    // Update count whenever the cart changes
     window.addEventListener("cartUpdated", loadCartCount);
 
-    // Clean up listener
     return () => {
       window.removeEventListener("cartUpdated", loadCartCount);
     };
@@ -50,12 +48,21 @@ function Header() {
 
   return (
     <header className="header">
+      <img
+        src={logo}
+        alt="Art and Craft Marketplace Logo"
+        className="header-logo"
+      />
+
       <h1>Art & Craft Marketplace</h1>
 
       <nav className="nav-links">
         <Link to="/">Home</Link>
+
         <Link to="/about">About</Link>
+
         <Link to="/upload">Upload</Link>
+
         <Link to="/checkout">Checkout</Link>
 
         <Link to="/cart" className="cart-link">
