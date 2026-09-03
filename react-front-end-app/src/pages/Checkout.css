@@ -96,7 +96,7 @@
 }
 
 .place-order-button:hover {
-  background-color: #775832;
+  background-color: #563308;
 }
 
 .demo-note {
@@ -109,8 +109,8 @@
 .order-summary {
   margin: 25px 0;
   padding: 20px;
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
+  background-color: #f2f0eb;
+  border: 1px solid #0e0000;
   border-radius: 10px;
 }
 
@@ -130,7 +130,7 @@
 
 .order-summary-item p {
   margin: 4px 0 0;
-  color: #666;
+  color: #331c02;
 }
 
 .order-summary-total {
@@ -149,4 +149,21 @@
   background-color: #b8b8b8;
   cursor: not-allowed;
   opacity: 0.7;
+}
+/* BACK TO CART */
+
+.back-to-cart-button {
+  display: inline-block;
+  margin: 10px 0 20px;
+  padding: 9px 16px;
+  border: 1px solid #010a14;
+  border-radius: 6px;
+  color: #0808ed;
+  text-decoration: none;
+  font-weight: 600;
+  background-color: #f8f6f5;
+}
+
+.back-to-cart-button:hover {
+  background-color: #f2efec;
 }

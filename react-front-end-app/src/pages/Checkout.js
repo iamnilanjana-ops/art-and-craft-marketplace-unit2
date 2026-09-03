@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Checkout.css";
+import { Link } from "react-router-dom";
 
 function Checkout() {
   const [customerName, setCustomerName] = useState("");
@@ -112,6 +113,9 @@ function Checkout() {
       <p>
         Enter your shipping information to place your order.
       </p>
+        <Link to="/cart" className="back-to-cart-button">
+        ← Back to Cart
+        </Link>
 
       <div className="order-summary">
         <h3>Order Summary</h3>
