@@ -12,71 +12,99 @@ function ProductCard({
     addToCart
 }) {
     return (
-        <div className="product-card">
-            <h4>{product.name}</h4>
+        <div className="product-row-wrapper">
 
-            <p className="price">
-                Price: ${Number(product.price).toFixed(2)}
-            </p>
+            <div className="product-table-row">
 
-            {product.quantity > 0 ? (
-                <>
-                    <p>Available Quantity: {product.quantity}</p>
+                <div className="product-name-cell">
+                    <strong>{product.name}</strong>
+                </div>
 
-                    <p className="total-price">
-                        Total: $
-                        {(Number(product.price) * Number(product.quantity)).toFixed(2)}
+                <div className="product-image-cell">
+                    {product.image ? (
+                        <img
+                            src={product.image}
+                            alt={product.name}
+                            className="table-product-image"
+                        />
+                    ) : (
+                        <span>No Image</span>
+                    )}
+                </div>
+
+                <div className="product-details-cell">
+                    <p>{product.description || "No description"}</p>
+
+                    <p>
+                        Quantity: {product.quantity}
                     </p>
-                </>
-            ) : (
-                <p className="out-of-stock">Out of Stock</p>
-            )}
+                </div>
 
-            <p>{product.description}</p>
+                <div className="product-price-cell">
+                    ${Number(product.price).toFixed(2)}
+                </div>
 
-            {product.image ? (
-                <img
-                    src={product.image}
-                    alt={product.name}
-                    className="product-image"
-                />
-            ) : (
-                <p>No image available</p>
-            )}
+                <div className="product-stock-cell">
+                    {product.quantity > 0 ? (
+                        <span className="in-stock">
+                            In Stock
+                        </span>
+                    ) : (
+                        <span className="out-of-stock">
+                            Out of Stock
+                        </span>
+                    )}
+                </div>
 
-            <div className="card-buttons">
-                <button
-                    type="button"
-                    onClick={() => editProduct(product)}
-                >
-                    Edit
-                </button>
+                <div className="product-actions-cell">
 
-                <button
-                    type="button"
-                    onClick={() => deleteProduct(product.id)}
-                >
-                    Delete
-                </button>
+                    <button
+                        type="button"
+                        className="edit-button"
+                        onClick={() => editProduct(product)}
+                    >
+                        Edit
+                    </button>
 
-                <button
-                    type="button"
-                    onClick={() => addToCart(product.id)}
-                    disabled={product.quantity === 0}
-                >
-                    {product.quantity === 0
-                        ? "Out of Stock"
-                        : "Add to Cart"}
-                </button>
+                    <button
+                        type="button"
+                        className="delete-button"
+                        onClick={() => deleteProduct(product.id)}
+                    >
+                        Delete
+                    </button>
+
+                    <button
+                        type="button"
+                        className="cart-button"
+                        onClick={() => addToCart(product.id)}
+                        disabled={product.quantity === 0}
+                    >
+                        {product.quantity === 0
+                            ? "Out of Stock"
+                            : "Add to Cart"}
+                    </button>
+
+                </div>
+
             </div>
 
-            <ReviewList reviews={reviews} />
+            <div className="product-review-row">
 
-            <ReviewForm
-                productId={product.id}
-                reviews={reviews}
-                addReview={addReview}
-            />
+                <div className="review-title">
+                    Reviews
+                </div>
+
+                <ReviewList reviews={reviews} />
+
+                <ReviewForm
+                    productId={product.id}
+                    reviews={reviews}
+                    addReview={addReview}
+                />
+
+            </div>
+
         </div>
     );
 }

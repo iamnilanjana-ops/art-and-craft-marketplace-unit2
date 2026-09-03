@@ -17,7 +17,7 @@
 }
 
 .home-label {
-  color: #2c6e49;
+  color: #643204;
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 2px;
@@ -53,14 +53,14 @@
 }
 
 .home-primary-button {
-  background-color: #2c6e49;
+  background-color: #643204;
   color: white;
 }
 
 .home-secondary-button {
   background-color: white;
-  color: #2c6e49;
-  border: 1px solid #2c6e49;
+  color: #643204;
+  border: 1px solid #643204;
 }
 
 .home-features {
@@ -91,7 +91,7 @@
 }
 
 .feature-card h3 {
-  color: #2c6e49;
+  color: #775832;
   margin-bottom: 12px;
 }
 

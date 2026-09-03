@@ -17,7 +17,17 @@ function ProductList({
       {products.length === 0 ? (
         <p>No products available.</p>
       ) : (
-        <div className="product-grid">
+        <div className="product-table">
+
+          <div className="product-table-header">
+            <div>Product Name</div>
+            <div>Image</div>
+            <div>Details</div>
+            <div>Price</div>
+            <div>Stock</div>
+            <div>Actions</div>
+          </div>
+
           {products.map((product) => (
             <ProductCard
               key={product.id}
@@ -31,6 +41,7 @@ function ProductList({
               addToCart={addToCart}
             />
           ))}
+
         </div>
       )}
     </div>
