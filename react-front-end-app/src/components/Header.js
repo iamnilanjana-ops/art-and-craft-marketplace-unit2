@@ -5,6 +5,9 @@ import "./Header.css";
 
 function Header() {
   const [cartCount, setCartCount] = useState(0);
+  const [userRole, setUserRole] = useState(
+    localStorage.getItem("userRole")
+  );
 
   useEffect(() => {
     const loadCartCount = async () => {
@@ -37,12 +40,18 @@ function Header() {
       }
     };
 
+    const updateLoginStatus = () => {
+      setUserRole(localStorage.getItem("userRole"));
+    };
+
     loadCartCount();
 
     window.addEventListener("cartUpdated", loadCartCount);
+    window.addEventListener("loginUpdated", updateLoginStatus);
 
     return () => {
       window.removeEventListener("cartUpdated", loadCartCount);
+      window.removeEventListener("loginUpdated", updateLoginStatus);
     };
   }, []);
 
@@ -53,6 +62,14 @@ function Header() {
         alt="Art and Craft Marketplace Logo"
         className="header-logo"
       />
+
+      <Link to="/login" className="login-link">
+        {userRole === "buyer"
+          ? "Buyer"
+          : userRole === "seller"
+          ? "Seller"
+          : "Login"}
+      </Link>
 
       <h1>Art & Craft Marketplace</h1>
 

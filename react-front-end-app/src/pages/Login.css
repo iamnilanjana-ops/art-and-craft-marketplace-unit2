@@ -1,0 +1,90 @@
+.login-page {
+  min-height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 20px;
+  background-color: #f8f5ef;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 450px;
+  padding: 35px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #dddddd;
+  text-align: center;
+}
+
+.login-card h2 {
+  margin-bottom: 10px;
+  color: #643204;
+  font-size: 30px;
+}
+
+.login-card p {
+  color: #555555;
+  margin-bottom: 25px;
+}
+
+.role-options {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.role-options button {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #643204;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #643204;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.role-options button:hover {
+  background-color: #f3ebe2;
+}
+
+.login-card form {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.login-card label {
+  margin-bottom: 6px;
+  color: #333333;
+  font-weight: 600;
+}
+
+.login-card input {
+  padding: 11px;
+  margin-bottom: 18px;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.login-card form button {
+  margin-top: 8px;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #643204;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.login-card form button:hover {
+  background-color: #7a430d;
+}
+.role-options button.active-role {
+  background-color: #643204;
+  color: #ffffff;
+}

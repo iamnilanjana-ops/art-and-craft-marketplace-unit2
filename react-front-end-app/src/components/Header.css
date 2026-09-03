@@ -91,3 +91,20 @@
     gap: 8px;
   }
 }
+.login-link {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+
+  padding: 8px 18px;
+  background-color: #ffffff;
+  color: #693f03;
+  border-radius: 6px;
+
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.login-link:hover {
+  background-color: #f3ebe2;
+}

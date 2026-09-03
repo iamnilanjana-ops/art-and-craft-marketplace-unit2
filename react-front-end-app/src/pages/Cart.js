@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Cart.css";
 
+
 function Cart() {
     const [cartItems, setCartItems] = useState([]);
     const [editingItemId, setEditingItemId] = useState(null);
