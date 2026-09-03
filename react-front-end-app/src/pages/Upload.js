@@ -166,6 +166,7 @@ function Upload() {
             }
 
             alert("Product added to cart!");
+            window.dispatchEvent(new Event("cartUpdated"));
 
         } catch (error) {
             console.error("Error adding to cart:", error);

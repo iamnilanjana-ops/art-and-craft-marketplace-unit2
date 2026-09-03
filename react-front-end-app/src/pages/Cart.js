@@ -72,6 +72,8 @@ function Cart() {
             await loadCart();
             setEditingItemId(null);
 
+            window.dispatchEvent(new Event("cartUpdated"));
+
             alert("Cart updated successfully!");
 
         } catch (error) {
@@ -106,6 +108,7 @@ function Cart() {
             }
 
             await loadCart();
+            window.dispatchEvent(new Event("cartUpdated"));
 
         } catch (error) {
             console.error("Error removing cart item:", error);
