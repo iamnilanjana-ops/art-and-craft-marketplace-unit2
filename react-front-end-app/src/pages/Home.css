@@ -7,9 +7,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 430px;
+
+  min-height: 520px;
   padding: 60px 30px;
   text-align: center;
+
+  background-image:
+  linear-gradient(
+    rgba(248, 245, 239, 0.40),
+    rgba(248, 245, 239, 0.40)
+  ),
+    url("../assets/art-craft-background.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .home-hero-content {
@@ -31,9 +43,12 @@
 }
 
 .home-description {
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1.7;
-  color: #555555;
+  color: #2b1a0e;
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 500;
   margin-bottom: 30px;
 }
 
