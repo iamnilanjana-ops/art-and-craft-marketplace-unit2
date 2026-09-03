@@ -8,7 +8,9 @@ function ProductList({
   editProduct,
   reviews,
   addReview,
-  addToCart
+  addToCart,
+  editReview,
+  deleteReview
 }) {
   return (
     <div className="product-list">
@@ -39,6 +41,8 @@ function ProductList({
               )}
               addReview={addReview}
               addToCart={addToCart}
+              editReview={editReview}
+              deleteReview={deleteReview}
             />
           ))}
 

@@ -14,15 +14,26 @@ public class Review {
 
     private int productId;
     private String reviewerName;
+    private String reviewerEmail;
+    private String reviewerRole;
     private int rating;
     private String comment;
 
     public Review() {
     }
 
-    public Review(int productId, String reviewerName, int rating, String comment) {
+    public Review(
+            int productId,
+            String reviewerName,
+            String reviewerEmail,
+            String reviewerRole,
+            int rating,
+            String comment) {
+
         this.productId = productId;
         this.reviewerName = reviewerName;
+        this.reviewerEmail = reviewerEmail;
+        this.reviewerRole = reviewerRole;
         this.rating = rating;
         this.comment = comment;
     }
@@ -45,6 +56,22 @@ public class Review {
 
     public void setReviewerName(String reviewerName) {
         this.reviewerName = reviewerName;
+    }
+
+    public String getReviewerEmail() {
+        return reviewerEmail;
+    }
+
+    public void setReviewerEmail(String reviewerEmail) {
+        this.reviewerEmail = reviewerEmail;
+    }
+
+    public String getReviewerRole() {
+        return reviewerRole;
+    }
+
+    public void setReviewerRole(String reviewerRole) {
+        this.reviewerRole = reviewerRole;
     }
 
     public int getRating() {

@@ -9,7 +9,9 @@ function ProductCard({
     editProduct,
     reviews,
     addReview,
-    addToCart
+    addToCart,
+    editReview,
+    deleteReview
 }) {
     return (
         <div className="product-row-wrapper">
@@ -95,7 +97,11 @@ function ProductCard({
                     Reviews
                 </div>
 
-                <ReviewList reviews={reviews} />
+                <ReviewList
+                    reviews={reviews}
+                    onEditReview={editReview}
+                    onDeleteReview={deleteReview}
+                />
 
                 <ReviewForm
                     productId={product.id}

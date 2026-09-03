@@ -58,3 +58,38 @@
     justify-content: space-between;
   }
 }
+.review-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.review-actions button {
+  padding: 7px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+/* Edit */
+.review-actions button:first-child {
+  background-color: #8a5a16;
+  color: white;
+}
+
+.review-actions button:first-child:hover {
+  background-color: #6f4510;
+}
+
+/* Delete */
+.review-actions button:last-child {
+  background-color: #a94442;
+  color: white;
+}
+
+.review-actions button:last-child:hover {
+  background-color: #873634;
+}

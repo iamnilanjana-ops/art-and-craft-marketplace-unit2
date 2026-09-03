@@ -123,16 +123,146 @@ function Upload() {
             },
             body: JSON.stringify(review)
         })
-            .then((response) => response.json())
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Could not add review");
+                }
+
+                return response.json();
+            })
             .then((savedReview) => {
                 setReviews((currentReviews) => [
                     ...currentReviews,
                     savedReview
                 ]);
             })
-            .catch((error) =>
-                console.error("Error adding review:", error)
+            .catch((error) => {
+                console.error("Error adding review:", error);
+                alert("Could not add review.");
+            });
+    };
+
+    // EDIT review
+    const editReview = async (review) => {
+        const updatedComment = window.prompt(
+            "Edit your review:",
+            review.comment
+        );
+
+        if (updatedComment === null) {
+            return;
+        }
+
+        const trimmedComment = updatedComment.trim();
+
+        if (!trimmedComment) {
+            alert("Review comment cannot be empty.");
+            return;
+        }
+
+        const ratingInput = window.prompt(
+            "Enter rating from 1 to 5:",
+            review.rating
+        );
+
+        if (ratingInput === null) {
+            return;
+        }
+
+        const updatedRating = Number(ratingInput);
+
+        if (
+            !Number.isInteger(updatedRating) ||
+            updatedRating < 1 ||
+            updatedRating > 5
+        ) {
+            alert("Rating must be between 1 and 5.");
+            return;
+        }
+
+        const reviewerEmail = localStorage.getItem("userEmail");
+        const reviewerRole = localStorage.getItem("userRole");
+
+        try {
+            const response = await fetch(
+                `http://localhost:8080/api/reviews/${review.id}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        ...review,
+                        reviewerEmail,
+                        reviewerRole,
+                        rating: updatedRating,
+                        comment: trimmedComment
+                    })
+                }
             );
+
+            if (!response.ok) {
+                throw new Error("Could not update review");
+            }
+
+            const savedReview = await response.json();
+
+            setReviews((currentReviews) =>
+                currentReviews.map((currentReview) =>
+                    currentReview.id === savedReview.id
+                        ? savedReview
+                        : currentReview
+                )
+            );
+
+            alert("Review updated successfully!");
+
+        } catch (error) {
+            console.error("Error updating review:", error);
+            alert("Could not update review.");
+        }
+    };
+
+    // DELETE review
+    const deleteReview = async (review) => {
+        const confirmed = window.confirm(
+            "Are you sure you want to delete your review?"
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
+        const reviewerEmail = localStorage.getItem("userEmail");
+        const reviewerRole = localStorage.getItem("userRole");
+
+        try {
+            const response = await fetch(
+                `http://localhost:8080/api/reviews/${review.id}?reviewerEmail=${encodeURIComponent(
+                    reviewerEmail
+                )}&reviewerRole=${encodeURIComponent(reviewerRole)}`,
+                {
+                    method: "DELETE"
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Could not delete review");
+            }
+
+            setReviews((currentReviews) =>
+                currentReviews.filter(
+                    (currentReview) =>
+                        currentReview.id !== review.id
+                )
+            );
+
+            alert("Review deleted successfully!");
+
+        } catch (error) {
+            console.error("Error deleting review:", error);
+            alert("Could not delete review.");
+        }
     };
 
     // ADD TO CART
@@ -191,6 +321,8 @@ function Upload() {
                 reviews={reviews}
                 addReview={addReview}
                 addToCart={addToCart}
+                editReview={editReview}
+                deleteReview={deleteReview}
             />
         </div>
     );
